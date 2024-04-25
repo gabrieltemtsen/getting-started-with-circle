@@ -18,10 +18,10 @@ async function createNewUser() {
   console.log("User created successfully");
 }
 
-// #Step 2 - Create session token
+//CREATE USER SESSION TOKEN
 async function createSessionToken() {
   let response = await client.createUserToken({
-    userId: "User_2",
+    userId: "user1",
   });
 
   console.log(response.data);
@@ -32,7 +32,7 @@ async function createChallengeForWalletCreation() {
   let response = await client.createUserPinWithWallets({
     userId: "User_1",
     blockchains: ["ETH-SEPOLIA"],
-    userToken: process.env.USER_TOKEN_1,
+    userToken: process.env.USER_1_TOKEN,
   });
 
   console.log(response.data?.challengeId);
@@ -44,7 +44,7 @@ async function createChallengeForSCAWalletCreation() {
     userId: "User_2",
     blockchains: ["ETH-SEPOLIA"],
     accountType: "SCA",
-    userToken: process.env.USER_TOKEN_2,
+    userToken: process.env.USER_2_TOKEN,
   });
 
   console.log(response.data?.challengeId);
@@ -55,20 +55,20 @@ async function createChallengeForSCAWalletCreation() {
 async function fetchWallet() {
   let response = await client.getWalletTokenBalance({
     walletId: process.env.SCA_WALLET_ID,
-    userToken: process.env.USER_TOKEN_2,
+    userToken: process.env.USER_2_TOKEN,
     userId: "User_2",
   });
 
   console.log(response.data?.tokenBalances);
 }
 
-// #Step 6 - Create Challenge for Outbound Transfer
+ // Create Challenge for Outbound Transfer
 async function createChallengeForOutboundTransfer() {
   let response = await client.createTransaction({
-    idempotencyKey: "9269de39-4d67-429d-8000-d37ea5d2d8cd",
+    idempotencyKey: "ENTER IDEMPOTENCY KEY",
     amounts: ["0.1"],
-    destinationAddress: "0xc3fbb0cf05fcfff49e83c55d74fdf8eeb241ac6b",
-    tokenId: "5797fbd6-3795-519d-84ca-ec4c5f80c3b1",
+    destinationAddress: "0X-ENTER DESTINATION ADDRESS",
+    tokenId: "5797fbd6-3795-519d-84ca-ec4c5f80c3b1", //USDC TOKEN ID
     walletId: process.env.SCA_WALLET_ID,
     userId: "User_2",
     fee: {
@@ -77,7 +77,7 @@ async function createChallengeForOutboundTransfer() {
         feeLevel: "MEDIUM",
       },
     },
-    userToken: process.env.USER_TOKEN_2,
+    userToken: process.env.USER_2_TOKEN,
   });
   console.log(response.data?.challengeId);
 }
