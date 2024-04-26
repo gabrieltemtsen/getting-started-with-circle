@@ -12,7 +12,7 @@ const client = initiateUserControlledWalletsClient({
 //CREATE USER
 async function createNewUser() {
   let response = await client.createUser({
-    userId: "user1",
+    userId: "User_1",
   });
 
   console.log("User created successfully");
@@ -21,24 +21,24 @@ async function createNewUser() {
 //CREATE USER SESSION TOKEN
 async function createSessionToken() {
   let response = await client.createUserToken({
-    userId: "user1",
+    userId: "User_1",
   });
 
   console.log(response.data);
 }
 
-// #Step 3 - Create Challenge for Wallet Creation
+// Create Challenge for Wallet Creation
 async function createChallengeForWalletCreation() {
   let response = await client.createUserPinWithWallets({
     userId: "User_1",
     blockchains: ["ETH-SEPOLIA"],
-    userToken: process.env.USER_1_TOKEN,
+    userToken: process.env.USER_TOKEN_1,
   });
 
   console.log(response.data?.challengeId);
 }
 
-// #Step 4 - Create Challenge for SCA Wallet Creation
+// Create Challenge for SCA Wallet Creation
 async function createChallengeForSCAWalletCreation() {
   let response = await client.createUserPinWithWallets({
     userId: "User_2",
